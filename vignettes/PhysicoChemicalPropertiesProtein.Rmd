@@ -1,0 +1,83 @@
+---
+title: "PhysicoChemicalPropertiesProtein: Calculation of physico-chemical properties of amino acid and protein sequences"
+author:
+ - name: Thomas Naake
+   mail: thomas.naake@embl.de, thomasnaake@googlemail.com
+   affiliation: European Molecular Biology Laboratory, Meyerhofstrasse 1, 69117 Heidelberg
+package: PhysicoChemicalPropertiesProtein
+      
+output:  
+    BiocStyle::html_document:
+        toc_float: true
+bibliography: PhysicoChemicalPropertiesProtein-citations.bib
+vignette: >
+    %\VignetteIndexEntry{Physico-chemical properties of amino acid and protein sequences}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteKeywords{Proteomics, Mass Spectrometry, MS, QC}
+    %\VignettePackage{PhysicoChemicalPropertiesProtein-vignette}
+    %\VignetteEncoding{UTF-8}
+---
+
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown()
+```
+
+```{r env, include=FALSE, echo=FALSE, cache=FALSE}
+library("knitr")
+opts_chunk$set(stop_on_error = 1L)
+suppressPackageStartupMessages(library("PhysicoChemicalPropertiesProtein"))
+```
+
+# Introduction {#sec-intro}
+
+
+# Installation
+
+To install this package, start `R` and enter:
+
+```{r, eval = FALSE}
+
+```
+
+This will install this package and all eventually missing dependencies.
+
+# Questions and bugs {-}
+
+`PhysicoChemicalPropertiesProtein` is currently under active development. 
+If you discover any bugs, typos or develop ideas of improving 
+`PhysicoChemicalPropertiesProtein` feel free to raise an issue via
+[GitHub](https://github.com/tnaake/PhysicoChemicalPropertiesProtein) or 
+send a mail to the developer.
+
+# Calculate physico-chemical properties of amino acid sequences
+
+```{r load_PhysicoChemicalPropertiesProtein}
+library("PhysicoChemicalPropertiesProtein")
+```
+
+## GRAVY Score
+
+```{r gravy, eval = TRUE, echo = TRUE}
+aa <- "TEST"
+calculateGravyScore(aa = aa)
+```
+
+## Isoelectric point
+
+```{r IE_point, eval = TRUE, echo = TRUE}
+aa <- "TEST"
+calculateIsoelectricPoint(aa = aa, method = "EMBOSS")
+```
+
+# Appendix {-}
+
+## Session information {-}
+
+All software and respective versions to build this vignette are listed here:
+
+```{r session,eval=TRUE, echo=FALSE}
+sessionInfo()
+```
+
+## References
+
