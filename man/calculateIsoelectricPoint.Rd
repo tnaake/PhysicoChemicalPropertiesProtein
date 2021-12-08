@@ -29,9 +29,9 @@ The pKa values are taken from Table 4 in Kozlowski (2016).
 
 For polypeptides, the isoelectric point depends primarily on the dissociation 
 constants (pKa) for the ionizable groups of seven charged amino acids: 
-glutamate (\delta-carboxyl group), aspartate (\beta-carboxyl group), cysteine 
+glutamate (\\delta-carboxyl group), aspartate (\\beta-carboxyl group), cysteine 
 (thiol group), tyrosine (phenol group), histidine (imidazole side chains), 
-lysine (\epsilon-ammonium group) and arginine (guanidinium group). Moreover, 
+lysine (\\epsilon-ammonium group) and arginine (guanidinium group). Moreover, 
 the charge of the terminal groups (NH2 and COOH) can greatly affect the pI 
 of short peptides. Generally, the Glu, Asp, Cys, and Tyr ionizable groups 
 are uncharged below their pKa and negatively charged above their pKa. 
