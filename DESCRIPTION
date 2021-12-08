@@ -1,6 +1,6 @@
-Package: physicoChemicalPropertiesProtein
+Package: PhysicoChemicalPropertiesProtein
 Type: Package
-Title: Calculate physico-chemical properties of amino acid and protein sequences
+Title: PhysicoChemicalPropertiesProtein - Calculation of physico-chemical properties of amino acid and protein sequences
 Version: 0.99.0
 Date: 2021-12-08
 Authors@R: c(person(given = "Thomas", family = "Naake", 
@@ -9,15 +9,15 @@ Authors@R: c(person(given = "Thomas", family = "Naake",
 Maintainer: Thomas Naake <thomasnaake@googlemail.com>
 VignetteBuilder: knitr
 Description: 
+	Calculation of physico-chemical properties of amino acid and protein sequences.
 Depends:
 	R (>= 4.1.0)
-Imports:
-	testthat (>= 2.2.1)
 Suggests:
 	BiocGenerics (>= 0.24.0),
 	BiocStyle (>= 2.6.1),
 	knitr (>= 1.11),
-	rmarkdown (>= 2.7)
+	rmarkdown (>= 2.7),
+	testthat (>= 2.2.1)
 biocViews: Proteomics, MassSpectrometry, QC
 License: GPL (>= 3)
 Encoding: UTF-8
