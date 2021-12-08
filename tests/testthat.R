@@ -1,4 +1,4 @@
 library("testthat")
-library("physicoChemicalPropertiesProtein")
+library("PhysicoChemicalPropertiesProtein")
 
-test_check("physicoChemicalPropertiesProtein")
+test_check("PhysicoChemicalPropertiesProtein")
