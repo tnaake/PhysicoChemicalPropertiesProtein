@@ -16,6 +16,15 @@
 #' 'A Simple Method for Displaying the  Hydropathic Character of a Protein',
 #' Journal of Molecular Biology, 175, 105-132.
 #' doi: 10.1016/0022-2836(82)90515-0
+#' 
+#' @param aa `character(1)`, vector containing the amino acid, peptide, or 
+#' protein sequence 
+#' 
+#' @export
+#' 
+#' @examples 
+#' aa <- "TEST"
+#' calculateGravyScore(aa = aa)
 calculateGravyScore <- function(aa) {
     
     if (!is.character(aa)) stop("'aa' has to be a character vector")

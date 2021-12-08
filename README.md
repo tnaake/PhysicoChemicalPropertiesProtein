@@ -1,2 +1,2 @@
-# physicoChemicalPropertiesProtein
+# PhysicoChemicalPropertiesProtein
  

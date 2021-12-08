@@ -6,7 +6,8 @@
 #' The function `calculateIsoelectricPoint` calculates the isoelectric point 
 #' of a given amino acid/protein sequence. 
 #' Several methods are implemented that use different pKa values for the 
-#' ionizable groups of proteins. 
+#' ionizable groups of proteins (N terminal, C terminal, and amino acids
+#' C, D, E, H, K, R, and Y). 
 #'
 #' @details
 #' The pKa values are taken from Table 4 in Kozlowski (2016).
@@ -22,15 +23,27 @@
 #' Similarly, the His, Lys, and Arg ionizable groups are positively charged 
 #' below their pKa and uncharged above their pKa.
 #' 
+#' The implemented algorithm (bisection algorithm) is as in Kozlowski (2016).
+#' 
 #' @references
-#' Kozlowski (2016):
-#' 'IPC - Isoelectric Point Calculator',
-#' Biology Direct, 11, 55.
+#' Kozlowski (2016): 'IPC - Isoelectric Point Calculator', Biology Direct, 
+#' 11, 55.
 #' doi: doi.org/10.1186/s13062-016-0159-9
+#' 
+#' @param aa `character(1)`, vector containing the amino acid, peptide, or 
+#' protein sequence 
+#' @param method `character(1)`, vector specifying the method/parametrization
+#' for the pKa values
+#' 
+#' @export
+#' 
+#' @examples 
+#' aa <- "TEST"
+#' calculateIsoelectricPoint(aa = aa, method = "EMBOSS")
 calculateIsoelectricPoint <- function(aa, 
-                                      method = c("EMBOSS", "DTASelect", "Solomon", "Sillero", "Rodwell", 
-                                                 "Lehninger", "Toseland", "Thurlkill", "Nozaki", 
-                                                 "IPC_protein", "IPC_peptide")) {
+    method = c("EMBOSS", "DTASelect", "Solomon", "Sillero", "Rodwell", 
+        "Lehninger", "Toseland", "Thurlkill", "Nozaki", 
+        "IPC_protein", "IPC_peptide")) {
     
     method <- match.arg(method)
     
