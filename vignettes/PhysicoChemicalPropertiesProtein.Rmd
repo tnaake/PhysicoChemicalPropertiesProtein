@@ -36,7 +36,8 @@ suppressPackageStartupMessages(library("PhysicoChemicalPropertiesProtein"))
 To install this package, start `R` and enter:
 
 ```{r, eval = FALSE}
-
+library(devtools)
+install_github("tnaake/PhysicoChemicalPropertiesProtein")
 ```
 
 This will install this package and all eventually missing dependencies.
@@ -52,20 +53,48 @@ send a mail to the developer.
 # Calculate physico-chemical properties of amino acid sequences
 
 ```{r load_PhysicoChemicalPropertiesProtein}
+library("Biostrings")
 library("PhysicoChemicalPropertiesProtein")
 ```
 
 ## GRAVY Score
 
+The function `calculateGravyScore` calculates the GRAVY (grand average 
+of hydropathy) value of a given amino acid/protein sequence. 
+The GRAVY value is calculated by adding the hydropathy value for each 
+residue and dividing by the length of the sequence.
+
+The hydropathy values are taken from Table 2 in @Kyte1982.
+
 ```{r gravy, eval = TRUE, echo = TRUE}
-aa <- "TEST"
+aa <- AAString("TEST")
 calculateGravyScore(aa = aa)
 ```
 
 ## Isoelectric point
 
+The function `calculateIsoelectricPoint` calculates the isoelectric point of a 
+given amino acid/protein sequence. Several methods are implemented that use 
+different pKa values for the ionizable groups of proteins (N terminal, 
+C terminal, and amino acids C, D, E, H, K, R, and Y).
+
+The pKa values are taken from Table 4 in @Kozlowski2016.
+ 
+For polypeptides, the isoelectric point depends primarily on the dissociation 
+constants (pKa) for the ionizable groups of seven charged amino acids: 
+glutamate (\\delta-carboxyl group), aspartate (\\beta-carboxyl group), cysteine 
+(thiol group), tyrosine (phenol group), histidine (imidazole side chains), 
+lysine (\\epsilon-ammonium group) and arginine (guanidinium group). Moreover, 
+the charge of the terminal groups (NH2 and COOH) can greatly affect the pI 
+of short peptides. Generally, the Glu, Asp, Cys, and Tyr ionizable groups 
+are uncharged below their pKa and negatively charged above their pKa. 
+Similarly, the His, Lys, and Arg ionizable groups are positively charged 
+below their pKa and uncharged above their pKa.
+ 
+The implemented algorithm (bisection algorithm) is as in @Kozlowski2016.
+
 ```{r IE_point, eval = TRUE, echo = TRUE}
-aa <- "TEST"
+aa <- AAString("TEST")
 calculateIsoelectricPoint(aa = aa, method = "EMBOSS")
 ```
 
