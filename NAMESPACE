@@ -2,3 +2,6 @@
 
 export(calculateGravyScore)
 export(calculateIsoelectricPoint)
+importFrom(Biostrings,AA_ALPHABET)
+importFrom(S4Vectors,safeExplode)
+importFrom(methods,is)
