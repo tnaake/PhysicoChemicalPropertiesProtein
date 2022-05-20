@@ -11,15 +11,15 @@ calculateIsoelectricPoint(
 )
 }
 \arguments{
-\item{aa}{`character(1)`, vector containing the amino acid, peptide, or 
+\item{aa}{\code{AAString} containing the amino acid, peptide, or 
 protein sequence}
 
-\item{method}{`character(1)`, vector specifying the method/parametrization
+\item{method}{\code{character(1)}, vector specifying the method/parametrization
 for the pKa values}
 }
 \description{
-The function `calculateIsoelectricPoint` calculates the isoelectric point 
-of a given amino acid/protein sequence. 
+The function \code{calculateIsoelectricPoint} calculates the isoelectric 
+point of a given amino acid/protein sequence. 
 Several methods are implemented that use different pKa values for the 
 ionizable groups of proteins (N terminal, C terminal, and amino acids
 C, D, E, H, K, R, and Y).
@@ -41,7 +41,8 @@ below their pKa and uncharged above their pKa.
 The implemented algorithm (bisection algorithm) is as in Kozlowski (2016).
 }
 \examples{
-aa <- "TEST"
+library(Biostrings)
+aa <- AAString("TEST")
 calculateIsoelectricPoint(aa = aa, method = "EMBOSS")
 }
 \references{

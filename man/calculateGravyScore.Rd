@@ -7,12 +7,12 @@
 calculateGravyScore(aa)
 }
 \arguments{
-\item{aa}{`character(1)`, vector containing the amino acid, peptide, or 
+\item{aa}{\code{AAString} containing the amino acid, peptide, or 
 protein sequence}
 }
 \description{
-The function `calculateGravyScore` calculates the GRAVY (grand average of 
-hydropathy) value of a given amino acid/protein sequence. 
+The function \code{calculateGravyScore} calculates the GRAVY (grand average 
+of hydropathy) value of a given amino acid/protein sequence. 
 The GRAVY value is calculated by adding the hydropathy value for each 
 residue and dividing by the length of the sequence.
 }
@@ -20,7 +20,8 @@ residue and dividing by the length of the sequence.
 The hydropathy values are taken from Table 2 in Kyte and Doolittle (1982).
 }
 \examples{
-aa <- "TEST"
+library(Biostrings)
+aa <- AAString(x = "TEST")
 calculateGravyScore(aa = aa)
 }
 \references{
