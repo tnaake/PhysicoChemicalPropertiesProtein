@@ -3,8 +3,8 @@
 #' @title Calculate Gravy scores of an amino acid/protein
 #' 
 #' @description 
-#' The function `calculateGravyScore` calculates the GRAVY (grand average of 
-#' hydropathy) value of a given amino acid/protein sequence. 
+#' The function \code{calculateGravyScore} calculates the GRAVY (grand average 
+#' of hydropathy) value of a given amino acid/protein sequence. 
 #' The GRAVY value is calculated by adding the hydropathy value for each 
 #' residue and dividing by the length of the sequence.
 #'
@@ -17,18 +17,18 @@
 #' Journal of Molecular Biology, 175, 105-132.
 #' doi: 10.1016/0022-2836(82)90515-0
 #' 
-#' @param aa `character(1)`, vector containing the amino acid, peptide, or 
+#' @param aa \code{AAString} containing the amino acid, peptide, or 
 #' protein sequence 
 #' 
 #' @export
 #' 
 #' @examples 
-#' aa <- "TEST"
+#' library(Biostrings)
+#' aa <- AAString(x = "TEST")
 #' calculateGravyScore(aa = aa)
 calculateGravyScore <- function(aa) {
     
-    if (!is.character(aa)) stop("'aa' has to be a character vector")
-    if (length(aa) != 1) stop("'aa' has to be of length 1")
+    aa <- checkAA(aa)
     
     mappings <- rbind(
         c("I", "Ile", "isoleucine", 4.5),

@@ -3,8 +3,8 @@
 #' @title Calculate isoelectric point of an amino acid/protein
 #' 
 #' @description 
-#' The function `calculateIsoelectricPoint` calculates the isoelectric point 
-#' of a given amino acid/protein sequence. 
+#' The function \code{calculateIsoelectricPoint} calculates the isoelectric 
+#' point of a given amino acid/protein sequence. 
 #' Several methods are implemented that use different pKa values for the 
 #' ionizable groups of proteins (N terminal, C terminal, and amino acids
 #' C, D, E, H, K, R, and Y). 
@@ -30,20 +30,25 @@
 #' 11, 55.
 #' doi: doi.org/10.1186/s13062-016-0159-9
 #' 
-#' @param aa `character(1)`, vector containing the amino acid, peptide, or 
+#' @param aa \code{AAString} containing the amino acid, peptide, or 
 #' protein sequence 
-#' @param method `character(1)`, vector specifying the method/parametrization
+#' @param method \code{character(1)}, vector specifying the method/parametrization
 #' for the pKa values
 #' 
 #' @export
 #' 
 #' @examples 
-#' aa <- "TEST"
+#' library(Biostrings)
+#' aa <- AAString("TEST")
 #' calculateIsoelectricPoint(aa = aa, method = "EMBOSS")
 calculateIsoelectricPoint <- function(aa, 
     method = c("EMBOSS", "DTASelect", "Solomon", "Sillero", "Rodwell", 
         "Lehninger", "Toseland", "Thurlkill", "Nozaki", 
         "IPC_protein", "IPC_peptide")) {
+    
+    ## check if the aa object is an AAString object and does not contain
+    ## letters not defined in the AA_ALPHABET
+    aa <- checkAA(aa)
     
     method <- match.arg(method)
     
@@ -91,17 +96,12 @@ calculateIsoelectricPoint <- function(aa,
         pKa <- c(NH2 = 9.564, COOH = 2.383, C = 8.297, D = 3.887, E = 4.317, 
                  H = 6.018, K = 10.517, R = 12.503, Y = 10.071)
     
-    ## get all the characters of the sequence
+    ## get all the characters and counts of the sequence
     aa_split <- strsplit(aa, split = "")[[1]]
     residues <- c("C", "D", "E", "H", "K", "R", "Y")
-    num <- table(aa_split)[residues]
-    num <- num[!is.na(names(num))]
-    num_missing <- residues[!residues %in% names(num)]
-    if (length(num_missing) > 0) {
-        num_missing_vec <- numeric(length(num_missing))
-        names(num_missing_vec) <- num_missing 
-        num <- c(num, num_missing_vec)
-    }
+    num <- table(factor(aa_split, levels = residues))
+    
+    ## add N-terminal and C-terminal to the counts
     num <- c("NH2" = 1, "COOH" = 1, num)
     
     ## the net charge of the peptide/protein is related to the solution pH,
@@ -111,10 +111,11 @@ calculateIsoelectricPoint <- function(aa,
     pHprev <- 0
     pHnext <- 14
     pI <- FALSE
+    iteration <- 1
     
     ## implement the bisection algorithm, which in each iteration halves
     ## the search space and then moves higher or lower by 3.5 (half of 7)
-    ## depending on the charge. In the next ieration, the pH is changed
+    ## depending on the charge. In the next iteration, the pH is changed
     ## by 1.75 (half of 3.5), ... The process is repeated until the algorithm
     ## reaches the desired precision
     while (!pI) {
@@ -122,8 +123,6 @@ calculateIsoelectricPoint <- function(aa,
         ## the Glu (E), Asp (D), Cys (C), and Tyr (Y) ionizable groups are 
         ## uncharged below their pKa and negatively charged above their pKa,
         ## charge of COOH group: negative
-        
-        sum_COOH <- sum_E <- sum_D <- sum_C <- sum_Y <- 0
         
         ## calculate the sum of the Henderson-Hasselbalch equation along the
         ## residues
@@ -138,7 +137,6 @@ calculateIsoelectricPoint <- function(aa,
         ## His (H), Lys (K), and Arg (R) are positively charged below their pKa  
         ## and uncharged above their pKa. 
         ## charge of NH2 group: positive
-        sum_NH2 <- sum_H <- sum_K <- sum_R <- 0
         
         ## calculate the sum of the Henderson-Hasselbalch equation along the 
         ## residues
@@ -162,11 +160,19 @@ calculateIsoelectricPoint <- function(aa,
             pHprev <- pH_tmp
         }
         
-        if (pH - pHprev < 0.001 & pHnext - pH < 0.001) 
+        if (pH - pHprev < 0.001 & pHnext - pH < 0.001)
             pI <- TRUE
         
+        ## define statement to stop while statement after 1000 rounds of 
+        ## iteration, 
+        if (iteration == 1000) {
+            warning("Maximum number of iteration (1000) has been reached without convergence.")
+            next()
+        }
+
+        iteration <- iteration + 1
         if (pH > 14) stop("'pH' is greater than 14")
-        if (pH < 0) stop("'pH' is smaller than 14")
+        if (pH < 0) stop("'pH' is smaller than 0")
     }
     
     return(pH)
