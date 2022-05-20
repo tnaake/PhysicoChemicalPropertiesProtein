@@ -28,34 +28,13 @@
 #' calculateGravyScore(aa = aa)
 calculateGravyScore <- function(aa) {
     
+    ## check the AAString object that it contains the valid residues
     aa <- checkAA(aa)
     
-    mappings <- rbind(
-        c("I", "Ile", "isoleucine", 4.5),
-        c("V", "Val", "valine", 4.2),
-        c("L", "Leu", "leucine", 3.8),
-        c("F", "Phe", "phenylalanine", 2.8),
-        c("C", "Cys", "cysteine", 2.5),
-        c("M", "Met", "methionine", 1.9),
-        c("A", "Ala", "alanine", 1.8),
-        c("G", "Gly", "glycine", -0.4),
-        c("T", "Thr", "threonine", -0.7),
-        c("W", "Trp", "tryptophan", -0.9),
-        c("S", "Ser", "serine", -0.8),
-        c("Y", "Tyr", "tyrosine", -1.3),
-        c("P", "Pro", "proline", -1.6),
-        c("H", "His", "histidine", -3.2),
-        c("E", "Glu", "glutamic acid", -3.5),
-        c("Q", "Gln", "glutamine", -3.5),
-        c("D", "Asp", "aspartic acid", -3.5),
-        c("N", "Asn", "asparagine", -3.5),
-        c("K", "Lys", "lysine", -3.9),
-        c("R", "Arg", "arginine", -4.5))
-    
-    mappings <- as.data.frame(mappings)
-    colnames(mappings) <- c("SINGLE_LETTER", "THREE_LETTER", "NAME", "SCORE")
-    rownames(mappings) <- mappings$SINGLE_LETTER
-    mappings$SCORE <- as.numeric(mappings$SCORE)
+    ## load the object that contains hydropathy values and retrieve scores
+    f <- system.file("GRAVY/hydropathy.RDS", 
+        package = "PhysicoChemicalPropertiesProtein")
+    mappings <- readRDS(f)
     score <- mappings[, "SCORE", drop = FALSE]
     
     ## get all the characters of the sequence
