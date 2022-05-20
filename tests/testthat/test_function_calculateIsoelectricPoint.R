@@ -1,108 +1,114 @@
-test_that("calculateIsoelectricPoint", {
+test_that("calculateIsoelectricPoint works.", {
     
-    expect_error(calculateIsoelectricPoint(seq, "foo"), 
+    ## check method
+    seq_aa <- AAString("TEST")
+    expect_error(calculateIsoelectricPoint(seq_aa, method = "foo"), 
                  "'arg' should be one of")
+    
+    ## check letters in amino acids
+    seq_aa <- AAString("aaa")
+    expect_error(calculateIsoelectricPoint(seq_aa, method = "EMBOSS"), 
+                 "'aa' contains letters not defined in the amino acid alphabet")
     
     ## values taken from http://isoelectric.org/calculate.php
     ## P99029-1, experimental isoelectric points (different sources): 
     ## 7.84, 7.65, 7.54
-    seq <- "MLQLGLRVLGCKASSVLRASTCLAGRAGRKEAGWECGGARSFSSSAVTMAPIKVGDAIPSVEVFEGEPGKKVNLAELFKGKKGVLFGVPGAFTPGCSKTHLPGFVEQAGALKAKGAQVVACLSVNDVFVIEEWGRAHQAEGKVRLLADPTGAFGKATDLL
-LDDSLVSLFGNRRLKRFSMVIDNGIVKALNVEPDGTGLTCSLAPNILSQL"
-    expect_equal(calculateIsoelectricPoint(seq, "EMBOSS"), 9.147, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "DTASelect"), 8.848, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Solomon"), 9.101,
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Sillero"), 9.291, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Rodwell"), 9.03,
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Lehninger"), 9.127,
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Toseland"), 8.18, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Thurlkill"), 9.02, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Nozaki"), 9.542, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "IPC_protein"), 8.054,
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "IPC_peptide"), 9.101, 
-                 tolerance = 5e-02)
+    seq_aa <- AAString("MLQLGLRVLGCKASSVLRASTCLAGRAGRKEAGWECGGARSFSSSAVTMAPIKVGDAIPSVEVFEGEPGKKVNLAELFKGKKGVLFGVPGAFTPGCSKTHLPGFVEQAGALKAKGAQVVACLSVNDVFVIEEWGRAHQAEGKVRLLADPTGAFGKATDLLLDDSLVSLFGNRRLKRFSMVIDNGIVKALNVEPDGTGLTCSLAPNILSQL")
+    expect_equal(calculateIsoelectricPoint(seq_aa, "EMBOSS"), 9.147, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "DTASelect"), 8.848, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Solomon"), 9.101,
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Sillero"), 9.291, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Rodwell"), 9.03,
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Lehninger"), 9.127,
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Toseland"), 8.18, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Thurlkill"), 9.02, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Nozaki"), 9.542, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "IPC_protein"), 8.054,
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "IPC_peptide"), 9.101, 
+                 tolerance = 1e-03)
     
     ## P40185-1 experimental isoelectric point 6.89
-    seq <- "MFLRNSVLRTAPVLRRGITTLTPVSTKLAPPAAASYSQAMKANNFVYVSGQIPYTPDNKPVQGSISEKAEQVFQNVKNILAESNSSLDNIVKVNVFLADMKNFAEFNSVYAKHFHTHKPARSCVGVASLPLNVDLEMEVIAVEKN"
-    expect_equal(calculateIsoelectricPoint(seq, "EMBOSS"), 9.764, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "DTASelect"), 9.269, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Solomon"), 9.694, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Sillero"), 9.542, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Rodwell"), 9.918, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Lehninger"), 9.667, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Toseland"), 9.357, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Thurlkill"), 9.443, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Nozaki"), 9.421, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "IPC_protein"), 8.64, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "IPC_peptide"), 9.687, 
-                 tolerance = 5e-02)
+    seq_aa <- AAString("MFLRNSVLRTAPVLRRGITTLTPVSTKLAPPAAASYSQAMKANNFVYVSGQIPYTPDNKPVQGSISEKAEQVFQNVKNILAESNSSLDNIVKVNVFLADMKNFAEFNSVYAKHFHTHKPARSCVGVASLPLNVDLEMEVIAVEKN")
+    expect_equal(calculateIsoelectricPoint(seq_aa, "EMBOSS"), 9.764, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "DTASelect"), 9.269, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Solomon"), 9.694, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Sillero"), 9.542, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Rodwell"), 9.918, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Lehninger"), 9.667, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Toseland"), 9.357, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Thurlkill"), 9.443, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Nozaki"), 9.421, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "IPC_protein"), 8.64, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "IPC_peptide"), 9.687, 
+                 tolerance = 1e-03)
     
     ## Q9XFT3-1 experimental isoelectric point 8.07
-    seq <- "MASMGGLHGASPAVLEGSLKINGSSRLNGSGRVAVAQRSRLVVRAQQSEETSRRSVIGLVAAGLAGGSFVQAVLADAISIKVGPPPAPSGGLPAGTDNSDQARDFALALKDRFYLQPLPPTEAAARAKESAKDIINVKPLIDRKAWPYVQNDLRSKASYLRYDLNTIISSKPKDEKKSLKDLTTKLFDTIDNLDYAAKKKSPSQAEKYYAETVSALNEVLAKLG"
-    expect_equal(calculateIsoelectricPoint(seq, "EMBOSS"), 10.222, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "DTASelect"), 9.645, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Solomon"), 10.046, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Sillero"), 9.921, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Rodwell"), 10.498, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Lehninger"), 10.017, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Toseland"), 9.824,
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Thurlkill"), 9.866, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Nozaki"), 9.784,
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "IPC_protein"), 8.958, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "IPC_peptide"), 10.046, 
-                 tolerance = 5e-02)
+    seq_aa <- AAString("MASMGGLHGASPAVLEGSLKINGSSRLNGSGRVAVAQRSRLVVRAQQSEETSRRSVIGLVAAGLAGGSFVQAVLADAISIKVGPPPAPSGGLPAGTDNSDQARDFALALKDRFYLQPLPPTEAAARAKESAKDIINVKPLIDRKAWPYVQNDLRSKASYLRYDLNTIISSKPKDEKKSLKDLTTKLFDTIDNLDYAAKKKSPSQAEKYYAETVSALNEVLAKLG")
+    expect_equal(calculateIsoelectricPoint(seq_aa, "EMBOSS"), 10.222, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "DTASelect"), 9.645, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Solomon"), 10.046, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Sillero"), 9.921, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Rodwell"), 10.498, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Lehninger"), 10.017, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Toseland"), 9.824,
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Thurlkill"), 9.866, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Nozaki"), 9.784,
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "IPC_protein"), 8.958, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "IPC_peptide"), 10.046, 
+                 tolerance = 1e-03)
     
-    ## Q9BVP2-1 experimental isoelectric point 6.47
-    seq <- "MKRPKLKKASKRMTCHKRYKIQKKVREHHRKLRKEAKKRGHKKPRKDPGVPNSAPFKEALLREAELRKQRLEELKQQQKLDRQKELEKKRKLETNPDIKPSNVEPMEKEFGLCKTENKAKSGKQNSKKLYCQELKKVIEASDVVLEVLDARDPLGCRCPQVEEAIVQSGQKKLVLILNKSDLVPKENLESWLNYLKKELPTVVFRASTKPKDKGKITKRVKAKKNAAPFRSEVCFGKEGLWKLLGGFQETCSKAIRVGVIGFPNVGKSSIINSLKQEQMCNVGVSMGLTRSMQVVPLDKQITIIDSPSFIVSPLNSSSALALRSPASIEVVKPMEAASAILSQADARQVVLKYTVPGYRNSLEFFTVLAQRRGMHQKGGIPNVEGAAKLLWSEWTGASLAYYCHPPTSWTPPPYFNESIVVDMKSGFNLEELEKNNAQSIRAIKGPHLANSILFQSSGLTNGIIEEKDIHEELPKRKERKQEEREDDKDSDQETVDEEVDENSSGMFAAEETGEALSEETTAGEQSTRSFILDKIIEEDDAYDFSTDYV"
-    expect_equal(calculateIsoelectricPoint(seq, "EMBOSS"), 9.41,
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "DTASelect"), 8.933, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Solomon"), 9.249, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Sillero"), 9.304,
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Rodwell"), 9.579, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Lehninger"), 9.237, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Toseland"), 8.903, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Thurlkill"), 9.149,
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "Nozaki"), 9.363, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "IPC_protein"), 8.081, 
-                 tolerance = 5e-02)
-    expect_equal(calculateIsoelectricPoint(seq, "IPC_peptide"), 9.251, 
-                 tolerance = 5e-02)
+    ## Q9BVP2-1 experimental isoelectric point 8.31
+    seq_aa <- AAString("MKRPKLKKASKRMTCHKRYKIQKKVREHHRKLRKEAKKRGHKKPRKDPGVPNSAPFKEALLREAELRKQRLEELKQQQKLDRQKELEKKRKLETNPDIKPSNVEPMEKEFGLCKTENKAKSGKQNSKKLYCQELKKVIEASDVVLEVLDARDPLGCRCPQVEEAIVQSGQKKLVLILNKSDLVPKENLESWLNYLKKELPTVVFRASTKPKDKGKITKRVKAKKNAAPFRSEVCFGKEGLWKLLGGFQETCSKAIRVGVIGFPNVGKSSIINSLKQEQMCNVGVSMGLTRSMQVVPLDKQITIIDSPSFIVSPLNSSSALALRSPASIEVVKPMEAASAILSQADARQVVLKYTVPGYRNSLEFFTVLAQRRGMHQKGGIPNVEGAAKLLWSEWTGASLAYYCHPPTSWTPPPYFNESIVVDMKSGFNLEELEKNNAQSIRAIKGPHLANSILFQSSGLTNGIIEEKDIHEELPKRKERKQEEREDDKDSDQETVDEEVDENSSGMFAAEETGEALSEETTAGEQSTRSFILDKIIEEDDAYDFSTDYV")
+    expect_equal(calculateIsoelectricPoint(seq_aa, "EMBOSS"), 9.746,
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "DTASelect"), 9.158, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Solomon"), 9.551, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Sillero"), 9.509,
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Rodwell"), 10.048, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Lehninger"), 9.533, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Toseland"), 9.33, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Thurlkill"), 9.416,
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "Nozaki"), 9.518, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "IPC_protein"), 8.306, 
+                 tolerance = 1e-03)
+    expect_equal(calculateIsoelectricPoint(seq_aa, "IPC_peptide"), 9.555, 
+                 tolerance = 1e-03)
 })
